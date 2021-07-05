@@ -60,16 +60,17 @@ function renderImages() {
         secondIndex = generateRandomIndex();
         thirdIndex = generateRandomIndex();
     }
-    
+
     // console.log('After', firstIndex);
     // console.log('After', secondIndex);
     // console.log('After', thirdIndex);
     sectionOne.src = Product.globArray[firstIndex].source;
-    sectionTwo.src = Product.globArray[secondIndex].source;
-    sectionThree.src = Product.globArray[thirdIndex].source;
     Product.globArray[firstIndex].shown++;
+    sectionTwo.src = Product.globArray[secondIndex].source;
     Product.globArray[secondIndex].shown++;
+    sectionThree.src = Product.globArray[thirdIndex].source;
     Product.globArray[thirdIndex].shown++;
+
     // console.log(Product.globArray[firstIndex].shown);
 }
 
@@ -78,10 +79,12 @@ renderImages();
 
 
 
-sectionOne.addEventListener('click', handleClick);
-sectionTwo.addEventListener('click', handleClick);
-sectionThree.addEventListener('click', handleClick);
-
+// sectionOne.addEventListener('click', handleClick);
+// sectionTwo.addEventListener('click', handleClick);
+// sectionThree.addEventListener('click', handleClick);
+const section = document.getElementById('sec-one');
+section.addEventListener('click', handleClick);
+let button;
 function handleClick(event) {
     counter++;
     if (maxAttempts >= counter) {
@@ -91,15 +94,29 @@ function handleClick(event) {
             Product.globArray[secondIndex].votes++;
         } else if (event.target.id === 'sec3-image') {
             Product.globArray[thirdIndex].votes++;
+        } else {
+            counter--;
+            return
         }
         renderImages();
+    } else {
+        button = document.getElementById('button');
+        button.addEventListener('click', renderShow);
+        section.removeEventListener('click', handleClick)
     }
 
 }
-
-let button = document.getElementById('button');
-button.addEventListener('click', renderList);
-
+function renderShow(){
+    renderList();
+    btnEl.removeEventListener('click',handleShow);
+  }
+  
+// button = document.getElementById('button');
+// button.addEventListener('click', renderList);
+// section.removeEventListener('click', handleClick)
+// sectionOne.removeEventListener('click', handleClick);
+// sectionTwo.removeEventListener('click', handleClick);
+// sectionThree.removeEventListener('click', handleClick);
 function renderList(event) {
     console.log("hello");
     const ul = document.getElementById('unList');
@@ -108,9 +125,7 @@ function renderList(event) {
         ul.appendChild(li);
         li.textContent = `${Product.globArray[i].name} had  ${Product.globArray[i].votes} votes, and was seen ${Product.globArray[i].shown} times.`
     }
-    sectionOne.removeEventListener('click', handleClick);
-    sectionTwo.removeEventListener('click', handleClick);
-    sectionThree.removeEventListener('click', handleClick);
+
 
 }
 
