@@ -5,11 +5,11 @@ const sectionOne = document.getElementById('sec1-image');
 const sectionTwo = document.getElementById('sec2-image');
 const sectionThree = document.getElementById('sec3-image');
 
-const maxAttempts = 25;
+const maxAttempts = 5;
 let counter = 0;
 
 
-
+let arrayOfname = [];
 
 
 function Product(name, source) {
@@ -18,6 +18,7 @@ function Product(name, source) {
     this.votes = 0;
     this.shown = 0;
     Product.globArray.push(this);
+    arrayOfname.push(this.name);
 }
 
 Product.globArray = [];
@@ -49,21 +50,32 @@ console.log(Product.globArray);
 let firstIndex;
 let secondIndex;
 let thirdIndex;
-
+let arrayImage = [];
 function renderImages() {
     firstIndex = generateRandomIndex();
     secondIndex = generateRandomIndex();
     thirdIndex = generateRandomIndex();
 
-    while (firstIndex === secondIndex || secondIndex === thirdIndex || firstIndex === thirdIndex) {
+    while (firstIndex === secondIndex || secondIndex === thirdIndex || firstIndex === thirdIndex || arrayImage.includes(firstIndex) || arrayImage.includes(secondIndex) || arrayImage.includes(thirdIndex)) {
         firstIndex = generateRandomIndex();
         secondIndex = generateRandomIndex();
         thirdIndex = generateRandomIndex();
-    }
 
+    }
+    arrayImage = [firstIndex, secondIndex, thirdIndex];
     // console.log('After', firstIndex);
     // console.log('After', secondIndex);
     // console.log('After', thirdIndex);
+    // arrayImage.push(firstIndex);
+    // arrayImage.push(secondIndex);
+    // arrayImage.push(thirdIndex);
+    // console.log(arrayImage);
+    // arrayImage.includes(arrayImage.push(firstIndex));
+    // arrayImage.includes(arrayImage.push(secondIndex));
+    // arrayImage.includes(arrayImage.push(thirdIndex));
+    console.log("after", arrayImage);
+
+
     sectionOne.src = Product.globArray[firstIndex].source;
     Product.globArray[firstIndex].shown++;
     sectionTwo.src = Product.globArray[secondIndex].source;
@@ -73,8 +85,15 @@ function renderImages() {
 
     // console.log(Product.globArray[firstIndex].shown);
 }
-
 renderImages();
+// arrayImage.push();
+// for (let j = 0; j < arrayImage.length; j++) {
+//    while (firstIndex ===firstIndex||secondIndex ===secondIndex||thirdIndex===thirdIndex){
+//     firstIndex = generateRandomIndex();
+//     secondIndex = generateRandomIndex();
+//     thirdIndex = generateRandomIndex();
+//    }
+// }
 
 
 
@@ -106,21 +125,26 @@ function handleClick(event) {
     }
 
 }
-function renderShow(){
+function renderShow() {
     renderList();
-    btnEl.removeEventListener('click',handleShow);
-  }
-  
-// button = document.getElementById('button');
-// button.addEventListener('click', renderList);
-// section.removeEventListener('click', handleClick)
+    partChart();
+    button.removeEventListener('click', renderShow);
+}
+
+
 // sectionOne.removeEventListener('click', handleClick);
 // sectionTwo.removeEventListener('click', handleClick);
 // sectionThree.removeEventListener('click', handleClick);
+
+let arrayOfvote = [];
+let arrayOfshown = [];
+
 function renderList(event) {
-    console.log("hello");
+    // console.log("hello");
     const ul = document.getElementById('unList');
     for (let i = 0; i < Product.globArray.length; i++) {
+        arrayOfvote.push(Product.globArray[i].votes)
+        arrayOfshown.push(Product.globArray[i].shown)
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${Product.globArray[i].name} had  ${Product.globArray[i].votes} votes, and was seen ${Product.globArray[i].shown} times.`
@@ -135,3 +159,36 @@ function generateRandomIndex() {
     return Math.floor(Math.random() * Product.globArray.length);
 
 }
+
+function partChart() {
+    let ctx = document.getElementById('myChart')
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: arrayOfname,
+            datasets: [{
+                label: '# of Votes',
+                data: arrayOfvote,
+                backgroundColor: [
+                    'bisque',
+                ],
+                borderColor: [
+                    'rgb(231, 179, 190)',
+                ],
+                borderWidth: 1
+
+            }, {
+                label: '# of Shown',
+                data: arrayOfshown,
+                backgroundColor: [
+                    'rgb(223, 182, 182)'
+                ], 
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
+            
+            }]
+        },
+    })
+    }
