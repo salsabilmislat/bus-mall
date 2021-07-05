@@ -5,7 +5,7 @@ const sectionOne = document.getElementById('sec1-image');
 const sectionTwo = document.getElementById('sec2-image');
 const sectionThree = document.getElementById('sec3-image');
 
-const maxAttempts = 5;
+const maxAttempts = 25;
 let counter = 0;
 
 
