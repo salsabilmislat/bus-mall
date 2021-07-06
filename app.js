@@ -18,7 +18,8 @@ function Product(Productname, source) {
     this.votes = 0;
     this.shown = 0;
     Product.globArray.push(this);
-   
+
+}
 
 Product.globArray = [];
 
@@ -47,10 +48,10 @@ function newObject() {
         new Product('water-can', 'image/water-can.jpg');
         new Product('wine-glass', 'image/wine-glass.jpg');
     } else {
-        const getFrom =JSON.parse(localStorage.getItem(globalArrKey));
-        Product.globArray=getFrom;
+        const getFrom = JSON.parse(localStorage.getItem(globalArrKey));
+        Product.globArray = getFrom;
     }
-   
+
 }
 newObject();
 console.log(Product.globArray);
@@ -112,7 +113,10 @@ renderImages();
 // sectionThree.addEventListener('click', handleClick);
 const section = document.getElementById('sec-one');
 section.addEventListener('click', handleClick);
-let button;
+
+let button = document.getElementById('button');
+button.addEventListener('click', renderShow);
+
 function handleClick(event) {
     counter++;
     if (maxAttempts >= counter) {
@@ -128,10 +132,9 @@ function handleClick(event) {
         }
         renderImages();
     } else {
-        const setTols =JSON.stringify(Product.globArray);
-        localStorage.setItem(globalArrKey,setTols);
-        button = document.getElementById('button');
-        button.addEventListener('click', renderShow);
+        const setTols = JSON.stringify(Product.globArray);
+        localStorage.setItem(globalArrKey, setTols);
+
         section.removeEventListener('click', handleClick)
     }
 
@@ -157,12 +160,12 @@ function renderList(event) {
         arrayOfname.push(Product.globArray[i].Productname);
         arrayOfvote.push(Product.globArray[i].votes);
         arrayOfshown.push(Product.globArray[i].shown);
-       
-    }
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${Product.globArray[i].Productname} had  ${Product.globArray[i].votes} votes, and was seen ${Product.globArray[i].shown} times.`
     }
+
+
 
 
 }
