@@ -12,38 +12,47 @@ let counter = 0;
 let arrayOfname = [];
 
 
-function Product(name, source) {
-    this.name = name;
+function Product(Productname, source) {
+    this.Productname = Productname;
     this.source = source;
     this.votes = 0;
     this.shown = 0;
     Product.globArray.push(this);
-    arrayOfname.push(this.name);
-}
+   
 
 Product.globArray = [];
 
-new Product('bag', 'image/bag.jpg');
-new Product('banana', 'image/banana.jpg');
-new Product('bathroom', 'image/bathroom.jpg');
-new Product('boots', 'image/boots.jpg');
-new Product('breakfast', 'image/breakfast.jpg');
-new Product('bubblegum', 'image/bubblegum.jpg');
-new Product('chair', 'image/chair.jpg');
-new Product('cthulhu', 'image/cthulhu.jpg');
-new Product('dog-duck', 'image/dog-duck.jpg');
-new Product('dragon', 'image/dragon.jpg');
-new Product('pen', 'image/pen.jpg');
-new Product('pet-sweep', 'image/pet-sweep.jpg');
-new Product('scissors', 'image/scissors.jpg');
-new Product('shark', 'image/shark.jpg');
-new Product('sweep', 'image/sweep.png');
-new Product('tauntaun', 'image/tauntaun.jpg');
-new Product('unicorn', 'image/unicorn.jpg');
-new Product('water-can', 'image/water-can.jpg');
-new Product('wine-glass', 'image/wine-glass.jpg');
+const globalArrKey = "JAkey";
 
+function newObject() {
+    if (localStorage.getItem(globalArrKey) == null) {
 
+        new Product('bag', 'image/bag.jpg');
+        new Product('banana', 'image/banana.jpg');
+        new Product('bathroom', 'image/bathroom.jpg');
+        new Product('boots', 'image/boots.jpg');
+        new Product('breakfast', 'image/breakfast.jpg');
+        new Product('bubblegum', 'image/bubblegum.jpg');
+        new Product('chair', 'image/chair.jpg');
+        new Product('cthulhu', 'image/cthulhu.jpg');
+        new Product('dog-duck', 'image/dog-duck.jpg');
+        new Product('dragon', 'image/dragon.jpg');
+        new Product('pen', 'image/pen.jpg');
+        new Product('pet-sweep', 'image/pet-sweep.jpg');
+        new Product('scissors', 'image/scissors.jpg');
+        new Product('shark', 'image/shark.jpg');
+        new Product('sweep', 'image/sweep.png');
+        new Product('tauntaun', 'image/tauntaun.jpg');
+        new Product('unicorn', 'image/unicorn.jpg');
+        new Product('water-can', 'image/water-can.jpg');
+        new Product('wine-glass', 'image/wine-glass.jpg');
+    } else {
+        const getFrom =JSON.parse(localStorage.getItem(globalArrKey));
+        Product.globArray=getFrom;
+    }
+   
+}
+newObject();
 console.log(Product.globArray);
 
 
@@ -119,6 +128,8 @@ function handleClick(event) {
         }
         renderImages();
     } else {
+        const setTols =JSON.stringify(Product.globArray);
+        localStorage.setItem(globalArrKey,setTols);
         button = document.getElementById('button');
         button.addEventListener('click', renderShow);
         section.removeEventListener('click', handleClick)
@@ -143,11 +154,14 @@ function renderList(event) {
     // console.log("hello");
     const ul = document.getElementById('unList');
     for (let i = 0; i < Product.globArray.length; i++) {
-        arrayOfvote.push(Product.globArray[i].votes)
-        arrayOfshown.push(Product.globArray[i].shown)
+        arrayOfname.push(Product.globArray[i].Productname);
+        arrayOfvote.push(Product.globArray[i].votes);
+        arrayOfshown.push(Product.globArray[i].shown);
+       
+    }
         let li = document.createElement('li');
         ul.appendChild(li);
-        li.textContent = `${Product.globArray[i].name} had  ${Product.globArray[i].votes} votes, and was seen ${Product.globArray[i].shown} times.`
+        li.textContent = `${Product.globArray[i].Productname} had  ${Product.globArray[i].votes} votes, and was seen ${Product.globArray[i].shown} times.`
     }
 
 
@@ -182,13 +196,13 @@ function partChart() {
                 data: arrayOfshown,
                 backgroundColor: [
                     'rgb(223, 182, 182)'
-                ], 
+                ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                 ],
                 borderWidth: 1
-            
+
             }]
         },
     })
-    }
+}
