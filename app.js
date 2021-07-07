@@ -22,9 +22,9 @@ function Product(Productname, source) {
 }
 
 Product.globArray = [];
-
+// this is the key for the local storage 
 const globalArrKey = "JAkey";
-
+// i made a function to store the whole objectes and get the local storage here
 function newObject() {
     if (localStorage.getItem(globalArrKey) == null) {
 
@@ -108,9 +108,7 @@ renderImages();
 
 
 
-// sectionOne.addEventListener('click', handleClick);
-// sectionTwo.addEventListener('click', handleClick);
-// sectionThree.addEventListener('click', handleClick);
+
 const section = document.getElementById('sec-one');
 section.addEventListener('click', handleClick);
 
@@ -145,10 +143,6 @@ function renderShow() {
     button.removeEventListener('click', renderShow);
 }
 
-
-// sectionOne.removeEventListener('click', handleClick);
-// sectionTwo.removeEventListener('click', handleClick);
-// sectionThree.removeEventListener('click', handleClick);
 
 let arrayOfvote = [];
 let arrayOfshown = [];

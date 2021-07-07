@@ -47,13 +47,20 @@ li{
 }
 #sec-Two{
     text-align: center;
-    
+    margin-right: 100px;
+    width: 92%;
 }
 button{
     color: rgb(223, 182, 182);
   background-color: black;
   margin-top: 85px;
   height: 34px;
-    width: 104px;
-    
+  width: 119px;
+  margin-left: 82px;
+}
+p{
+    font-size: 26px;
+    margin-left: 73px;
+    padding-top: 32px;
+    color: azure;
 }
